@@ -5,15 +5,15 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ebe9d7"
+    android:background="@color/colorPrimary"
     tools:context=".LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo_home"
         android:layout_width="188dp"
         android:layout_height="48dp"
-        android:layout_marginTop="64dp"
         android:layout_marginLeft="112dp"
+        android:layout_marginTop="64dp"
         android:layout_marginRight="112dp"
         android:src="@drawable/logo_home"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,83 +25,92 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:gravity="center"
-        android:text="BEM-VINDO AO \nEMPRESAS"
-        android:textColor="#383743"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:autoSizeMinTextSize="8sp"
         android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="@string/text_title"
+        android:textColor="@color/charcoalGrey"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_home"/>
+        app:layout_constraintTop_toBottomOf="@id/logo_home" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="48dp"
-        android:gravity="center"
-        android:text="Lorem ipsum dolor sit amet, contetur \nadipiscing elit. Nunc accumsan."
-        android:textColor="#383743"
-        android:textSize="16sp"
         android:autoSizeMinTextSize="8sp"
         android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="@string/text_subtitle"
+        android:textColor="@color/charcoalGrey"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_title"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        app:layout_constraintStart_toStartOf="@id/txt_subtitle"
+        android:layout_marginTop="96dp"
+        android:textColorHint="@color/charcoalGreyTransparent"
+        android:hint="@string/text_hint_email"
+        app:layout_constraintBottom_toTopOf="@id/ic_email"
         app:layout_constraintEnd_toEndOf="@id/txt_subtitle"
-        app:layout_constraintTop_toBottomOf="@id/txt_subtitle"/>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/txt_subtitle"
+        app:layout_constraintTop_toBottomOf="@id/txt_subtitle" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edtPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="@id/edtEmail"
+        android:layout_marginTop="56dp"
+        android:textColorHint="@color/charcoalGreyTransparent"
+        android:hint="@string/text_hint_password"
+        app:layout_constraintBottom_toTopOf="@id/ic_cadeado"
         app:layout_constraintEnd_toEndOf="@id/edtEmail"
-        app:layout_constraintTop_toBottomOf="@id/edtEmail"/>
-    
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/edtEmail"
+        app:layout_constraintTop_toBottomOf="@id/ic_email" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#57bbbc"
         android:layout_marginTop="32dp"
-        android:text="ENTRAR"
-        android:textColor="#ffffff"
-        app:layout_constraintStart_toStartOf="@id/edtPassword"
+        android:background="@color/colorAccent"
+        android:text="@string/text_btnLogin"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/edtPassword"
-        app:layout_constraintTop_toBottomOf="@id/edtPassword"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/edtPassword"
+        app:layout_constraintTop_toBottomOf="@id/edtPassword"
+        app:layout_constraintVertical_bias="0.05" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_email"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_email"
+        app:layout_constraintBottom_toBottomOf="@id/edtEmail"
         app:layout_constraintStart_toStartOf="@id/edtEmail"
-        app:layout_constraintTop_toTopOf="@id/edtEmail"
-        app:layout_constraintBottom_toBottomOf="@id/edtEmail" />
+        app:layout_constraintTop_toTopOf="@id/edtEmail" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_cadeado"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_cadeado"
-        app:layout_constraintStart_toStartOf="@id/edtPassword"
         app:layout_constraintTop_toTopOf="@id/edtPassword"
+        app:layout_constraintStart_toStartOf="@id/edtPassword"
         app:layout_constraintBottom_toBottomOf="@id/edtPassword" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

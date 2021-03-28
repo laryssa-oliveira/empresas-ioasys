@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#ebe9d7</color>
+    <color name="colorPrimaryDark">#B5B4A6</color>
+    <color name="colorAccent">#57BBBC</color>
+    <color name="colorNavBar">#140c35</color>
+
+    <!--- Companies -->
+    <color name="charcoalGrey">#383743</color>
+    <color name="charcoalGreyTransparent">#80383743</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+
+    <color name="mediumPink">#ee4c77</color>
+    <color name="nightBlue">#0d0430</color>
+    <color name="softGreen">#7dc075</color>
 </resources>
