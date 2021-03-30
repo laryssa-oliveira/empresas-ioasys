@@ -21,45 +21,37 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setItem(listOf(
                 Company(
-                    id: 1,
-                    companyName: "Empresa 1",
-                    description: "Exemplo teste",
-                    pathImage: "Imagem",
-                    country: "Brasil",
+                    id = 1,
+                    companyName = "Empresa 1",
+                    description = "Exemplo teste",
+                    pathImage = "https://thispersondoesnotexist.com/image",
+                    country = "Brasil",
                     CompanyType (
-                            id: 0,
-                            companyTypeName: "valor"
+                            id = 0,
+                            companyTypeName = "valor"
                     )
-                )
-            )
-        )
-
-        adapter.setItem(listOf(
+                ),
                 Company(
-                    id: 1,
-                    companyName: "Empresa 2",
-                    description: "Exemplo teste",
-                    pathImage: "Imagem",
-                    country: "Brasil",
-                    CompanyType (
-                            id: 0,
-                            companyTypeName: "valor"
-                    )
-                )
-            )
-        )
-
-        adapter.setItem(listOf(
+                        id = 1,
+                        companyName = "Empresa 2",
+                        description = "Exemplo teste",
+                        pathImage = "https://thispersondoesnotexist.com/image",
+                        country = "Brasil",
+                        CompanyType (
+                                id = 0,
+                                companyTypeName = "valor"
+                        )
+                ),
                 Company(
-                    id: 1,
-                    companyName: "Empresa 3",
-                    description: "Exemplo teste",
-                    pathImage: "Imagem",
-                    country: "Brasil",
-                    CompanyType (
-                            id: 0,
-                            companyTypeName: "valor"
-                    )
+                        id = 1,
+                        companyName = "Empresa 3",
+                        description = "Exemplo teste",
+                        pathImage = "https://thispersondoesnotexist.com/image",
+                        country = "Brasil",
+                        CompanyType (
+                                id = 0,
+                                companyTypeName = "valor"
+                        )
                 )
             )
         )

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 
 class CompanyAdapter(
@@ -22,8 +23,14 @@ class CompanyAdapter(
                     company.companyType?.companyTypeName
             itemView.findViewById<AppCompatTextView>(R.id.textCompanyCountry).text =
                     company.country
-            itemView.findViewById<AppCompatImageView>(R.id.imageCompany)
+            val imageView = itemView.findViewById<AppCompatImageView>(R.id.imageCompany)
             itemView.setOnClickListener { callback.invoke(company) }
+
+            Glide
+                    .with(itemView)
+                    .load(company.pathImage)
+                    .placeholder(R.drawable.ic_cadeado)
+                    .into(imageView);
         }
 
     }
@@ -38,7 +45,7 @@ class CompanyAdapter(
     }
 
     override fun onBindViewHolder(holder: CompaniesViewHolder, position: Int) {
-        holder.bind(companies(position))
+        holder.bind(companies[position])
     }
 
     override fun getItemCount(): Int {

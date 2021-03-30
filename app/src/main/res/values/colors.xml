@@ -11,6 +11,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="warmGrey">#8d8c8c</color>
+    <color name="whiteTransparent">#99ffffff</color>
 
 
     <color name="mediumPinkDark">#b93a5d</color>
