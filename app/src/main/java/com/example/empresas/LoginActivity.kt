@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         Log.i("LoginActivity", "OnCreate")
 
+
         button.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
