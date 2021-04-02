@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         button.setOnClickListener{
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, DetailsActivity::class.java)
             startActivity(intent)
             viewLoading.visibility = View.VISIBLE
             progressBar.visibility = ProgressBar.VISIBLE
