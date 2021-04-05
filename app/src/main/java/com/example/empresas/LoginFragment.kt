@@ -1,7 +1,5 @@
 package com.example.empresas
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.example.empresas.R
+import androidx.navigation.fragment.findNavController
 
-class LoginActivity : Fragment() {
+class LoginFragment : Fragment() {
 
     lateinit var button: AppCompatButton
     lateinit var viewLoading: View
@@ -23,7 +21,7 @@ class LoginActivity : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_login, container, false)
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
 
@@ -36,10 +34,9 @@ class LoginActivity : Fragment() {
 
 
         button.setOnClickListener{
-            //val intent = Intent(this, MainFragment::class.java)
-            //startActivity(intent)
-            //viewLoading.visibility = View.VISIBLE
-            //progressBar.visibility = ProgressBar.VISIBLE
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
+            viewLoading.visibility = View.VISIBLE
+            progressBar.visibility = ProgressBar.VISIBLE
         }
     }
 }

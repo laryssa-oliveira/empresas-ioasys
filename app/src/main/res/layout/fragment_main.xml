@@ -74,5 +74,4 @@
         tools:listitem="@layout/item_company"/>
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

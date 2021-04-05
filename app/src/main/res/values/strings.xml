@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Empresas</string>
-    <string name="text_title">BEM-VINDO AO <br></br> EMPRESAS</string>
+    <string name="text_title">BEM-VINDO AO \nEMPRESAS</string>
     <string name="text_subtitle">Lorem ipsum dolor sit amet, contetur \nadipiscing elit. Nunc accumsan.</string>
     <string name="text_hint_email">E-mail</string>
     <string name="text_hint_password">Senha</string>

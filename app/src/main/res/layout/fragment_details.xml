@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
-    tools:context=".DetailsActivity">
+    tools:context=".DetailsFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarDetails"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar_background"
@@ -20,17 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnArrowBackDetails"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginRight="360dp"
-                android:background="@drawable/ic_arrow_back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/companyName"
                 android:layout_width="wrap_content"
@@ -38,14 +27,9 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="EMPRESA"
-                android:layout_marginStart="32dp"
-                app:layout_constraintStart_toEndOf="@id/btnArrowBackDetails"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,7 +43,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarDetails"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionCompany"
@@ -72,6 +56,5 @@
         app:layout_constraintTop_toBottomOf="@id/imageViewDetails"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,13 @@
 package com.example.empresas
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 class MainFragment : Fragment() {
@@ -15,13 +15,14 @@ class MainFragment : Fragment() {
     private val adapter by lazy { CompanyAdapter(::clickItem)}
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
+    lateinit var button: AppCompatButton
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_main, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,51 +31,58 @@ class MainFragment : Fragment() {
                 //.setSupportActionBar(toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
+        button = view.findViewById(R.id.btnArrowBackMain)
+
+        button.setOnClickListener{
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
+        }
 
         adapter.setItem(listOf(
                 Company(
-                    id = 1,
-                    companyName = "Empresa 1",
-                    description = "Exemplo teste",
-                    pathImage = "https://thispersondoesnotexist.com/image",
-                    country = "Brasil",
+                    1,
+                    "Empresa 1",
+                    "Exemplo teste",
+                    "https://thispersondoesnotexist.com/image",
+                    "Brasil",
                     CompanyType (
-                            id = 0,
-                            companyTypeName = "valor"
+                             0,
+                             "valor"
                     )
                 ),
                 Company(
-                        id = 1,
-                        companyName = "Empresa 2",
-                        description = "Exemplo teste",
-                        pathImage = "https://thispersondoesnotexist.com/image",
-                        country = "Brasil",
+                         1,
+                         "Empresa 2",
+                         "Exemplo teste",
+                         "https://thispersondoesnotexist.com/image",
+                         "Brasil",
                         CompanyType (
-                                id = 0,
-                                companyTypeName = "valor"
+                                0,
+                                "valor"
                         )
                 ),
                 Company(
-                        id = 1,
-                        companyName = "Empresa 3",
-                        description = "Exemplo teste",
-                        pathImage = "https://thispersondoesnotexist.com/image",
-                        country = "Brasil",
+                         1,
+                         "Empresa 3",
+                         "Exemplo teste",
+                         "https://thispersondoesnotexist.com/image",
+                         "Brasil",
                         CompanyType (
-                                id = 0,
-                                companyTypeName = "valor"
+                                 0,
+                                 "valor"
                         )
                 )
             )
         )
+
     }
 
     private fun clickItem(company: Company){
-   //         val intent = Intent(this, DetailsActivity::class.java).apply {
-   //             putExtra(DetailsActivity.EXTRA_NAME, company.companyName)
-   //             putExtra(DetailsActivity.EXTRA_IMAGE, company.pathImage)
-   //             putExtra(DetailsActivity.EXTRA_DESCRIPTION, company.description)
-   //         }
-   //         startActivity(intent)
+        findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToDetailsFragment(
+                        name = company.companyName,
+                        imageUrl = company.pathImage,
+                        description = company.description
+                )
+        )
     }
 }
