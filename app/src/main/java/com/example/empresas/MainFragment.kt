@@ -8,14 +8,24 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.example.empresas.remote.CompanyService
+import com.example.empresas.remote.GetCompaniesResponse
+import com.example.empresas.remote.toModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class MainFragment : Fragment() {
+
+    private val args: MainFragmentArgs by navArgs()
 
     private val adapter by lazy { CompanyAdapter(::clickItem)}
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
-    lateinit var button: AppCompatButton
+    //lateinit var button: AppCompatButton
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,49 +41,28 @@ class MainFragment : Fragment() {
                 //.setSupportActionBar(toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
-        button = view.findViewById(R.id.btnArrowBackMain)
+        //button = view.findViewById(R.id.btnArrowBackMain)
 
-        button.setOnClickListener{
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
-        }
+        getCompanies()
 
-        adapter.setItem(listOf(
-                Company(
-                    1,
-                    "Empresa 1",
-                    "Exemplo teste",
-                    "https://thispersondoesnotexist.com/image",
-                    "Brasil",
-                    CompanyType (
-                             0,
-                             "valor"
-                    )
-                ),
-                Company(
-                         1,
-                         "Empresa 2",
-                         "Exemplo teste",
-                         "https://thispersondoesnotexist.com/image",
-                         "Brasil",
-                        CompanyType (
-                                0,
-                                "valor"
-                        )
-                ),
-                Company(
-                         1,
-                         "Empresa 3",
-                         "Exemplo teste",
-                         "https://thispersondoesnotexist.com/image",
-                         "Brasil",
-                        CompanyType (
-                                 0,
-                                 "valor"
-                        )
-                )
+    }
+
+    private fun getCompanies() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val response = CompanyService.newInstance().getEnterprises(
+                    accessToken = args.accessToken,
+                    client = args.clientId,
+                    uid = args.uid
             )
-        )
 
+            handleResponse(response)
+        }
+    }
+
+    private fun handleResponse(response: Response<GetCompaniesResponse>) {
+        if(response.isSuccessful) {
+            adapter.setItems(response.body()?.companies?.map { it.toModel() } ?: listOf())
+        }
     }
 
     private fun clickItem(company: Company){

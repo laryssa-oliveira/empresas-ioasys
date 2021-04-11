@@ -52,7 +52,7 @@ class CompanyAdapter(
         return  companies.size
     }
 
-    fun setItem(list: List<Company>){
+    fun setItems(list: List<Company>){
         companies = list
         notifyDataSetChanged()
     }

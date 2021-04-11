@@ -10,9 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 
 class HomeActivity: AppCompatActivity() {
 
-    //private var currentNavController: LiveData<NavController>? = null
-
-    private val navController: NavController by lazy { findNavController(R.id.nav_host_fragment) }
+    private val navController: NavController by lazy { findNavController(R.id.nav_host_fragment_container) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

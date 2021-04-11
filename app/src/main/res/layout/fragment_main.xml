@@ -43,16 +43,7 @@
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"/>
 
-           <androidx.appcompat.widget.AppCompatButton
-               android:id="@+id/btnArrowBackMain"
-               android:layout_width="24dp"
-               android:layout_height="24dp"
-               android:layout_marginRight="360dp"
-               android:background="@drawable/ic_arrow_back"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
        </androidx.constraintlayout.widget.ConstraintLayout>
