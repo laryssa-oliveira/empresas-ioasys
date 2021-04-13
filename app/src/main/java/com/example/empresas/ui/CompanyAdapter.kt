@@ -1,4 +1,4 @@
-package com.example.empresas
+package com.example.empresas.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.empresas.Company
+import com.example.empresas.R
 
 
 class CompanyAdapter(
@@ -29,7 +31,7 @@ class CompanyAdapter(
             Glide
                     .with(itemView)
                     .load(company.pathImage)
-                    .placeholder(R.drawable.ic_cadeado)
+                    .placeholder(R.drawable.ic_logo)
                     .into(imageView);
         }
 

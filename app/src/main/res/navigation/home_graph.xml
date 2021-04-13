@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.empresas.LoginFragment"
+        android:name="com.example.empresas.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.empresas.MainFragment"
+        android:name="com.example.empresas.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <argument
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.empresas.DetailsFragment"
+        android:name="com.example.empresas.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument

@@ -1,31 +1,30 @@
-package com.example.empresas
+package com.example.empresas.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
-import com.example.empresas.remote.CompanyService
-import com.example.empresas.remote.GetCompaniesResponse
-import com.example.empresas.remote.toModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import com.example.empresas.Company
+import com.example.empresas.R
+import com.example.empresas.presentation.MainViewModel
+import com.example.empresas.presentation.ViewModelFactory
+
 
 class MainFragment : Fragment() {
 
     private val args: MainFragmentArgs by navArgs()
 
-    private val adapter by lazy { CompanyAdapter(::clickItem)}
+    private val adapter by lazy { CompanyAdapter(::clickItem) }
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
-    //lateinit var button: AppCompatButton
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -38,32 +37,36 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar = view.findViewById(R.id.toolbar)
-                //.setSupportActionBar(toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
-        //button = view.findViewById(R.id.btnArrowBackMain)
+        viewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
 
-        getCompanies()
+        viewModel.getCompanies(
+                accessToken = args.accessToken,
+                clientId = args.clientId,
+                uid = args.uid
+        )
+
+        setupToolbar()
+        setObservers()
 
     }
 
-    private fun getCompanies() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val response = CompanyService.newInstance().getEnterprises(
-                    accessToken = args.accessToken,
-                    client = args.clientId,
-                    uid = args.uid
-            )
-
-            handleResponse(response)
+    private fun setupToolbar() {
+        (activity as AppCompatActivity).run {
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
     }
 
-    private fun handleResponse(response: Response<GetCompaniesResponse>) {
-        if(response.isSuccessful) {
-            adapter.setItems(response.body()?.companies?.map { it.toModel() } ?: listOf())
-        }
+    private fun setObservers() {
+        viewModel.companyListLiveData.observe(viewLifecycleOwner, { list ->
+            adapter.setItems(list)
+        })
     }
+
+
 
     private fun clickItem(company: Company){
         findNavController().navigate(

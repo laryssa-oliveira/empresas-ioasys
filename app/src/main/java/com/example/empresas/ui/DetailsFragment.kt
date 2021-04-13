@@ -1,21 +1,20 @@
-package com.example.empresas
+package com.example.empresas.ui
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+
+import com.example.empresas.R
 
 class DetailsFragment: Fragment(){
 
@@ -63,7 +62,7 @@ class DetailsFragment: Fragment(){
     private fun setImageContent() {
         Glide
                 .with(this)
-                .load("imageUrl")
+                .load("https://thispersondoesnotexist.com/image")
                 .placeholder(R.drawable.ic_logo)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
