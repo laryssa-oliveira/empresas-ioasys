@@ -1,4 +1,4 @@
-package com.example.empresas.remote
+package com.example.empresas.data
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

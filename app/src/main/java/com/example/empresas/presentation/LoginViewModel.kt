@@ -1,40 +1,33 @@
 package com.example.empresas.presentation
 
-import android.view.View
-import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.empresas.remote.CompanyService
-import com.example.empresas.remote.LoginRequest
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
+import com.example.empresas.extensions.viewState
+import com.example.empresas.data.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
-import okhttp3.Headers
 
 class LoginViewModel(
-        private  val service: CompanyService
+        private val repository: Repository
 ): ViewModel() {
-    private val _headersLiveData = MutableLiveData<Headers?>()
-    val headersLiveData: LiveData<Headers?> = _headersLiveData
+    private val _headersLiveData by viewState<Unit>()
+    val headersLiveData: LiveData<ViewState<Unit>> = _headersLiveData
+
     fun login(email: String, password: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val response = CompanyService.newInstance().login(
-                    LoginRequest(
-                    email = email,
-                    password = password
-                )
-            )
-            handleLogin(response)
+        _headersLiveData.value = ViewState.loading(true)
+        viewModelScope.launch(Dispatchers.Main) {
+            handleLogin(repository.login(email, password))
         }
 
     }
 
-    private fun handleLogin(response: Response<Unit>) {
-        if(response.isSuccessful){
-            _headersLiveData.value = response.headers()
+    private fun handleLogin(response: ResultWrapper<Unit>) {
+        when(response){
+            is ResultWrapper.Success -> _headersLiveData.value = ViewState.success(Unit)
+            is ResultWrapper.Failure -> _headersLiveData.value = ViewState.error(response.error)
         }
+        _headersLiveData.value = ViewState.loading(false)
     }
 
     fun clearStatus() {

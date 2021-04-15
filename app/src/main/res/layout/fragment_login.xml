@@ -132,4 +132,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/loadingGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="viewLoading,progressBar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
