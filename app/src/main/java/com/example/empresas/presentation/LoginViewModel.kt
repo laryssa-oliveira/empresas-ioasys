@@ -3,8 +3,9 @@ package com.example.empresas.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.empresas.data.Repository
 import com.example.empresas.extensions.viewState
-import com.example.empresas.data.ResultWrapper
+import com.example.empresas.data.data_remote.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

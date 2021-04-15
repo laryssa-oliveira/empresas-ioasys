@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.empresas.presentation.ViewState.State.*
 
 import com.example.empresas.R
+import com.example.empresas.injection.Injection
 import com.example.empresas.presentation.LoginViewModel
 import com.example.empresas.presentation.LoginViewModelFactory
 
@@ -47,7 +48,7 @@ class LoginFragment : Fragment() {
         edtPassword = view.findViewById(R.id.edtPassword)
         viewLoading = view.findViewById(R.id.viewLoading)
         progressBar = view.findViewById(R.id.progressBar)
-        viewModel = ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
+        viewModel = Injection.provideLoginViewModel(this, requireContext())
         loadingGroup = view.findViewById(R.id.loadingGroup)
 
         button.setOnClickListener{
