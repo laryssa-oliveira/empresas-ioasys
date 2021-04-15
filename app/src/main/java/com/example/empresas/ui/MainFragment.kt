@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.empresas.Company
 import com.example.empresas.R
 import com.example.empresas.presentation.MainViewModel
-import com.example.empresas.presentation.ViewModelFactory
+import com.example.empresas.presentation.MainViewModelFactory
+import com.example.empresas.presentation.ViewState
 
 
 class MainFragment : Fragment() {
-
-    private val args: MainFragmentArgs by navArgs()
 
     private val adapter by lazy { CompanyAdapter(::clickItem) }
     private lateinit var toolbar: Toolbar
@@ -39,13 +38,9 @@ class MainFragment : Fragment() {
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
-        viewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
 
-        viewModel.getCompanies(
-                accessToken = args.accessToken,
-                clientId = args.clientId,
-                uid = args.uid
-        )
+        viewModel.getCompanies()
 
         setupToolbar()
         setObservers()
@@ -61,11 +56,29 @@ class MainFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.companyListLiveData.observe(viewLifecycleOwner, { list ->
-            adapter.setItems(list)
+        viewModel.companyListLiveData.observe(viewLifecycleOwner, {
+            when(it.state) {
+
+                ViewState.State.SUCCESS -> onSuccess(it.data ?: listOf<Company>())
+                ViewState.State.ERROR -> onResultError(it.error)
+                ViewState.State.LOADING -> onLoading(it.isLoading)
+            }
         })
     }
 
+    private fun onLoading(loading: Boolean) {
+        TODO("Not yet implemented")
+
+    }
+
+    private fun onResultError(error: Throwable?) {
+        Toast.makeText(requireContext(), error?.message?: "", Toast.LENGTH_LONG).show()
+    }
+
+    private fun onSuccess(list: List<Company>){
+        adapter.setItems(list)
+
+    }
 
 
     private fun clickItem(company: Company){

@@ -20,18 +20,7 @@
         android:name="com.example.empresas.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
-        <argument
-            android:name="accessToken"
-            app:argType="string"
-            app:nullable="false"/>
-        <argument
-            android:name="clientId"
-            app:argType="string"
-            app:nullable="false"/>
-        <argument
-            android:name="uid"
-            app:argType="string"
-            app:nullable="false"/>
+
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
