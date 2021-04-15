@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.empresas.Company
 import com.example.empresas.R
+import com.example.empresas.injection.Injection
 import com.example.empresas.presentation.MainViewModel
 import com.example.empresas.presentation.MainViewModelFactory
 import com.example.empresas.presentation.ViewState
@@ -38,8 +39,7 @@ class MainFragment : Fragment() {
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
-        viewModel = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
-
+        viewModel = Injection.provideMainViewModel(this, requireContext())
         viewModel.getCompanies()
 
         setupToolbar()

@@ -1,18 +1,27 @@
 package com.example.empresas.presentation
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.empresas.data.CompanyService
-import com.example.empresas.data.LocalDataSource
+import androidx.lifecycle.ViewModelStoreOwner
+import com.example.empresas.data.Repository
+import com.example.empresas.injection.Injection.provideRepository
 
-class LoginViewModelFactory : ViewModelProvider.Factory {
+class LoginViewModelFactory(
+        private val context: Context
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return  modelClass.getConstructor(CompanyService::class.java)
-                .newInstance(
-                        Repository(
-                                CompanyService.newInstance(),
-                                LocalDataSource()
-                        )
-                )
+        return  modelClass.getConstructor(Repository::class.java)
+                .newInstance(provideRepository(context))
     }
+
+
+    companion object{
+        fun create(from : ViewModelStoreOwner, context: Context) =
+            ViewModelProvider(
+                    from,
+                    LoginViewModelFactory(context)
+            ).get(LoginViewModel::class.java)
+        }
+
 }
