@@ -1,35 +1,23 @@
-package com.example.empresas.data
+package com.example.empresas.data.data_remote.enterprise
 
 import com.example.empresas.Company
 import com.example.empresas.extensions.wrapResponse
 import com.example.empresas.data.Constants.HEADER_ACCESS_TOKEN
 import com.example.empresas.data.Constants.HEADER_CLIENT
 import com.example.empresas.data.Constants.HEADER_UID
+import com.example.empresas.data.EnterpriseRepository
 import com.example.empresas.data.data_local.LocalDataSource
-import com.example.empresas.data.data_remote.CompanyService
-import com.example.empresas.data.data_remote.LoginRequest
+import com.example.empresas.data.data_local.LocalDataSourceImpl
 import com.example.empresas.data.data_remote.ResultWrapper
 import com.example.empresas.data.data_remote.toModel
 
 
-class Repository(
+class EnterpriseRepositoryImpl(
         private val service: CompanyService,
         private val localDataSource: LocalDataSource
-) {
+) : EnterpriseRepository{
 
-    suspend fun login(email: String, password: String) =
-        wrapResponse{
-            service.login(
-                    LoginRequest(
-                            email = email,
-                            password = password
-                    )
-            ).apply {
-                localDataSource.saveHeadersToPreferences(headers())
-            }
-        }
-
-    suspend fun getEnterprises(): ResultWrapper<List<Company>> =
+    override suspend fun getEnterprises(): ResultWrapper<List<Company>> =
             when(val result = callEnterprisesEndpoint()) {
                 is ResultWrapper.Failure -> ResultWrapper.Failure(result.error!!)
                 is ResultWrapper.Success -> ResultWrapper.Success(

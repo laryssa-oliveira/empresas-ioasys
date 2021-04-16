@@ -1,6 +1,6 @@
-package com.example.empresas.data.data_remote
+package com.example.empresas.data.data_remote.enterprise
 
-import com.example.empresas.data.data_remote.CompanyResponse
+import com.example.empresas.data.data_remote.enterprise.CompanyResponse
 import com.google.gson.annotations.SerializedName
 
 data class GetCompaniesResponse (

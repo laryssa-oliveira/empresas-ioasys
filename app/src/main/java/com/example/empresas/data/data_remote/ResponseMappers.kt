@@ -2,6 +2,8 @@ package com.example.empresas.data.data_remote
 
 import com.example.empresas.Company
 import com.example.empresas.CompanyType
+import com.example.empresas.data.data_remote.enterprise.CompanyResponse
+import com.example.empresas.data.data_remote.enterprise.CompanyTypeResponse
 
 fun CompanyResponse.toModel(): Company {
     return Company(

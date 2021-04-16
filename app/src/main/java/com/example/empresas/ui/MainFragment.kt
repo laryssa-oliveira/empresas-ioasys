@@ -8,15 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.empresas.Company
 import com.example.empresas.R
-import com.example.empresas.injection.Injection
 import com.example.empresas.presentation.MainViewModel
-import com.example.empresas.presentation.MainViewModelFactory
 import com.example.empresas.presentation.ViewState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
@@ -24,7 +22,7 @@ class MainFragment : Fragment() {
     private val adapter by lazy { CompanyAdapter(::clickItem) }
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: MainViewModel
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -39,8 +37,7 @@ class MainFragment : Fragment() {
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
-        viewModel = Injection.provideMainViewModel(this, requireContext())
-        viewModel.getCompanies()
+        mainViewModel.getCompanies()
 
         setupToolbar()
         setObservers()
@@ -56,7 +53,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.companyListLiveData.observe(viewLifecycleOwner, {
+        mainViewModel.companyListLiveData.observe(viewLifecycleOwner, {
             when(it.state) {
 
                 ViewState.State.SUCCESS -> onSuccess(it.data ?: listOf<Company>())
