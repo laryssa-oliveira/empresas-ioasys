@@ -10,16 +10,14 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.empresas.presentation.ViewState.State.*
 
 import com.example.empresas.R
-import com.example.empresas.injection.Injection
 import com.example.empresas.presentation.LoginViewModel
-import com.example.empresas.presentation.LoginViewModelFactory
 
 import com.google.android.material.textfield.TextInputEditText
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LoginFragment : Fragment() {
@@ -29,7 +27,7 @@ class LoginFragment : Fragment() {
     private lateinit var edtPassword: TextInputEditText
     private lateinit var viewLoading: View
     private lateinit var progressBar: ProgressBar
-    private lateinit var viewModel: LoginViewModel
+    private val loginViewModel by viewModel<LoginViewModel>()
     private lateinit var loadingGroup: Group
 
     override fun onCreateView(
@@ -48,11 +46,10 @@ class LoginFragment : Fragment() {
         edtPassword = view.findViewById(R.id.edtPassword)
         viewLoading = view.findViewById(R.id.viewLoading)
         progressBar = view.findViewById(R.id.progressBar)
-        viewModel = Injection.provideLoginViewModel(this, requireContext())
         loadingGroup = view.findViewById(R.id.loadingGroup)
 
         button.setOnClickListener{
-            viewModel.login(edtEmail.text.toString(), edtPassword.text.toString())
+            loginViewModel.login(edtEmail.text.toString(), edtPassword.text.toString())
             viewLoading.visibility = View.VISIBLE
             progressBar.visibility = ProgressBar.VISIBLE
         }
@@ -60,7 +57,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.headersLiveData.observe(viewLifecycleOwner, {
+        loginViewModel.headersLiveData.observe(viewLifecycleOwner, {
             when(it.state) {
 
                 SUCCESS -> onResultSuccess()
@@ -89,7 +86,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToMainFragment(                    )
             )
-            viewModel.clearStatus()
+            loginViewModel.clearStatus()
 
 
     }

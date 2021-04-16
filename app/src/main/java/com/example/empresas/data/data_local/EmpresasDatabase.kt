@@ -7,8 +7,7 @@ import androidx.room.RoomDatabase
         entities = [HeadersLocal::class, CompanyLocal::class],
         version = 1
 )
-
-abstract class EmpresasDatabase : RoomDatabase() {
+abstract class EmpresasDatabase: RoomDatabase() {
     abstract fun provideHeadersDao(): HeadersDao
 
     abstract fun provideCompanyDao(): CompanyDao

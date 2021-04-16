@@ -3,15 +3,16 @@ package com.example.empresas.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.empresas.data.Repository
 import com.example.empresas.extensions.viewState
 import com.example.empresas.data.data_remote.ResultWrapper
+import com.example.empresas.data.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-        private val repository: Repository
-): ViewModel() {
+        private val repository : LoginRepository
+): ViewModel(){
+
     private val _headersLiveData by viewState<Unit>()
     val headersLiveData: LiveData<ViewState<Unit>> = _headersLiveData
 
