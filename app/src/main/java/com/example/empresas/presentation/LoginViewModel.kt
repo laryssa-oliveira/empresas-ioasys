@@ -33,6 +33,6 @@ class LoginViewModel(
     }
 
     fun clearStatus() {
-        _headersLiveData.value = null
+        //_headersLiveData.value = ViewState.success(null)
     }
 }

@@ -50,10 +50,9 @@ class LoginFragment : Fragment() {
 
         button.setOnClickListener{
             loginViewModel.login(edtEmail.text.toString(), edtPassword.text.toString())
-            viewLoading.visibility = View.VISIBLE
-            progressBar.visibility = ProgressBar.VISIBLE
         }
         setObservers()
+        onLoading(false)
     }
 
     private fun setObservers() {
@@ -84,7 +83,7 @@ class LoginFragment : Fragment() {
 
     private fun onResultSuccess() {
             findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToMainFragment(                    )
+                    LoginFragmentDirections.actionLoginFragmentToMainFragment()
             )
             loginViewModel.clearStatus()
 

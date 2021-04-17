@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class MainFragment : Fragment() {
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
     private val mainViewModel by viewModel<MainViewModel>()
+    private lateinit var loadingGroup: Group
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -37,6 +39,7 @@ class MainFragment : Fragment() {
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.adapter = adapter
+        loadingGroup = view.findViewById(R.id.loadingGroupMain)
         mainViewModel.getCompanies()
 
         setupToolbar()
@@ -64,7 +67,10 @@ class MainFragment : Fragment() {
     }
 
     private fun onLoading(loading: Boolean) {
-        TODO("Not yet implemented")
+        if(loading)
+            loadingGroup.visibility = View.VISIBLE
+        else
+            loadingGroup.visibility = View.GONE
 
     }
 
