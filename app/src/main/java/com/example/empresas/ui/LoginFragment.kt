@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
@@ -17,7 +19,7 @@ import com.example.empresas.R
 import com.example.empresas.presentation.LoginViewModel
 
 import com.google.android.material.textfield.TextInputEditText
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class LoginFragment : Fragment() {
@@ -48,16 +50,25 @@ class LoginFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         loadingGroup = view.findViewById(R.id.loadingGroup)
 
-        button.setOnClickListener{
+        button.setOnClickListener {
             loginViewModel.login(edtEmail.text.toString(), edtPassword.text.toString())
         }
         setObservers()
         onLoading(false)
+
+        (requireActivity() as? AppCompatActivity)?.onBackPressedDispatcher?.addCallback(
+                viewLifecycleOwner,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        requireActivity().finish()
+                    }
+                }
+        )
     }
 
     private fun setObservers() {
         loginViewModel.headersLiveData.observe(viewLifecycleOwner, {
-            when(it.state) {
+            when (it.state) {
 
                 SUCCESS -> onResultSuccess()
                 ERROR -> onResultError(it.error)
@@ -69,23 +80,24 @@ class LoginFragment : Fragment() {
     }
 
     private fun onLoading(loading: Boolean) {
-        if(loading)
+        if (loading)
             loadingGroup.visibility = View.VISIBLE
-         else
+        else
             loadingGroup.visibility = View.GONE
 
     }
 
     private fun onResultError(error: Throwable?) {
-        Toast.makeText(requireContext(), error?.message?: "", Toast.LENGTH_LONG).show()
+        onLoading(false)
+        Toast.makeText(requireContext(), error?.message ?: "", Toast.LENGTH_LONG).show()
 
     }
 
     private fun onResultSuccess() {
-            findNavController().navigate(
-                    LoginFragmentDirections.actionLoginFragmentToMainFragment()
-            )
-            loginViewModel.clearStatus()
+        onLoading(false)
+        findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+        )
 
 
     }

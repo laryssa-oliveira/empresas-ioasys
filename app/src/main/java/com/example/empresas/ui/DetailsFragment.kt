@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 import com.example.empresas.R
+import com.example.empresas.presentation.DetailsViewModel
+import com.example.empresas.presentation.MainViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailsFragment: Fragment(){
 
@@ -24,6 +27,8 @@ class DetailsFragment: Fragment(){
     private lateinit var imageViewDetails: AppCompatImageView
     private lateinit var companyName: AppCompatTextView
     private lateinit var descriptionCompany: AppCompatTextView
+    private lateinit var favoriteCompany: AppCompatImageView
+    private val detailsViewModel by viewModel<DetailsViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -39,6 +44,18 @@ class DetailsFragment: Fragment(){
         imageViewDetails = view.findViewById(R.id.imageViewDetails)
         companyName = view.findViewById(R.id.companyName)
         descriptionCompany = view.findViewById(R.id.descriptionCompany)
+        favoriteCompany = view.findViewById(R.id.favCompany)
+
+        favoriteCompany.setOnClickListener {
+            if (args.company.favorite){
+                favoriteCompany.setImageResource(R.drawable.ic_not_favorite)
+            }
+            else{
+                favoriteCompany.setImageResource(R.drawable.ic_favorite)
+            }
+            detailsViewModel.favorite(args.company.favorite, args.company)
+        }
+
         setupToolbar()
         configureView()
 
@@ -53,9 +70,16 @@ class DetailsFragment: Fragment(){
     }
 
     private fun configureView() {
-        companyName.text = args.name
-        descriptionCompany.text = args.description
+        companyName.text = args.company.companyName
+        descriptionCompany.text = args.company.description
         descriptionCompany.movementMethod = ScrollingMovementMethod()
+        if (args.company.favorite){
+            favoriteCompany.setImageResource(R.drawable.ic_favorite)
+        }
+        else {
+            favoriteCompany.setImageResource(R.drawable.ic_not_favorite)
+        }
+
         setImageContent()
     }
 
