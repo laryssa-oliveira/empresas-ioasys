@@ -1,63 +1,61 @@
 package com.example.empresas.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.TextUtils
+import android.util.Log
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.empresas.Company
 import com.example.empresas.R
+import com.example.empresas.domain.entities.Company
 import com.example.empresas.presentation.MainViewModel
 import com.example.empresas.presentation.ViewState
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
 
-    private val adapter by lazy { CompanyAdapter(::clickItem) }
-    private lateinit var toolbar: Toolbar
+    private lateinit var adapter: CompanyAdapter
     private lateinit var recyclerView: RecyclerView
     private val mainViewModel by viewModel<MainViewModel>()
     private lateinit var loadingGroup: Group
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar = view.findViewById(R.id.toolbar)
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.adapter = adapter
-        loadingGroup = view.findViewById(R.id.loadingGroupMain)
+        recyclerView = requireActivity().findViewById(R.id.recyclerView)
+        loadingGroup = requireActivity().findViewById(R.id.loadingGroupMain)
         mainViewModel.getCompanies()
 
-        setupToolbar()
         setObservers()
-
-    }
-
-    private fun setupToolbar() {
-        (activity as AppCompatActivity).run {
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     private fun setObservers() {
         mainViewModel.companyListLiveData.observe(viewLifecycleOwner, {
-            when(it.state) {
+            when (it.state) {
+
+                ViewState.State.SUCCESS -> onSuccess(it.data ?: listOf<Company>())
+                ViewState.State.ERROR -> onResultError(it.error)
+                ViewState.State.LOADING -> onLoading(it.isLoading)
+            }
+        })
+
+        mainViewModel.filterCompany.observe(viewLifecycleOwner, {
+            when (it.state) {
 
                 ViewState.State.SUCCESS -> onSuccess(it.data ?: listOf<Company>())
                 ViewState.State.ERROR -> onResultError(it.error)
@@ -66,8 +64,10 @@ class MainFragment : Fragment() {
         })
     }
 
+
+
     private fun onLoading(loading: Boolean) {
-        if(loading)
+        if (loading)
             loadingGroup.visibility = View.VISIBLE
         else
             loadingGroup.visibility = View.GONE
@@ -75,22 +75,24 @@ class MainFragment : Fragment() {
     }
 
     private fun onResultError(error: Throwable?) {
-        Toast.makeText(requireContext(), error?.message?: "", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), error?.message ?: "", Toast.LENGTH_LONG).show()
     }
 
-    private fun onSuccess(list: List<Company>){
+    private fun onSuccess(list: List<Company>) {
+        onLoading(false)
+        adapter = CompanyAdapter(callback = ::clickItem, callbackLike = ::clickLikeItem)
         adapter.setItems(list)
-
+        recyclerView.adapter = adapter
     }
 
 
-    private fun clickItem(company: Company){
+    private fun clickItem(company: Company) {
         findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToDetailsFragment(
-                        name = company.companyName,
-                        imageUrl = company.pathImage,
-                        description = company.description
-                )
+            HomeFragmentDirections.actionHomeFragmentToDetailsFragment(company)
         )
+    }
+
+    private fun clickLikeItem(company: Company, like: Boolean) {
+        mainViewModel.favorite(like, company)
     }
 }

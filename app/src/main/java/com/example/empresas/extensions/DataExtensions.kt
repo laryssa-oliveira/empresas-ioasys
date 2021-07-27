@@ -1,6 +1,6 @@
 package com.example.empresas.extensions
 
-import com.example.empresas.data.data_remote.ResultWrapper
+import com.example.empresas.data.remote_data.core.ResultWrapper
 import retrofit2.Response
 
 suspend fun <T> wrapResponse(
