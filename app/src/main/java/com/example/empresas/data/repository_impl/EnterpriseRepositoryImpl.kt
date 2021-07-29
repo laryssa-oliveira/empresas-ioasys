@@ -5,14 +5,11 @@ import com.example.empresas.data.constants.Constants.HEADER_ACCESS_TOKEN
 import com.example.empresas.data.constants.Constants.HEADER_CLIENT
 import com.example.empresas.data.constants.Constants.HEADER_UID
 import com.example.empresas.data.cache_data.datasource.LocalDataSource
-import com.example.empresas.data.remote_data.core.ResultWrapper
 import com.example.empresas.data.remote_data.enterprise.api.CompanyService
 import com.example.empresas.data.remote_data.mapper.fromListResponse
-import com.example.empresas.data.remote_data.mapper.toModel
 import com.example.empresas.domain.entities.Company
 import com.example.empresas.domain.repository.EnterpriseRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 
@@ -36,6 +33,12 @@ class EnterpriseRepositoryImpl(
         )
     }
 
+    override fun getFavoriteEnterprises(): Flow<List<Company>> = flow {
+        emit(
+            localDataSource.getCompanyByFavorite()
+        )
+    }
+
     override fun logout(): Flow<Unit> {
         return localDataSource.logout()
     }
@@ -56,6 +59,7 @@ class EnterpriseRepositoryImpl(
         }
         return companySync
     }
+
 
 }
 

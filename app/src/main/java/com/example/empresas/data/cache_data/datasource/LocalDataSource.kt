@@ -8,11 +8,11 @@ interface LocalDataSource {
 
     suspend fun saveToLocalDatabase(headers: Headers)
 
-    suspend fun getFromLocalDatabase() : Headers
+    suspend fun getFromLocalDatabase(): Headers
 
     fun saveHeadersToPreferences(headers: Headers)
 
-    fun getHeadersFromPreferences() : Headers
+    fun getHeadersFromPreferences(): Headers
 
     fun isLogged(): Flow<Boolean>
 
@@ -21,4 +21,6 @@ interface LocalDataSource {
     fun favoriteCompany(like: Boolean, company: Company): Flow<Boolean>
 
     suspend fun getCompanyById(id: Int): Company?
+
+    suspend fun getCompanyByFavorite(): List<Company>
 }

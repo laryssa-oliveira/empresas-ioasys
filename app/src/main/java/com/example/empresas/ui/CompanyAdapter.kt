@@ -79,7 +79,6 @@ class CompanyAdapter(
 
     fun setItems(list: List<Company>) {
         companies = list
-        notifyDataSetChanged()
     }
 }
 

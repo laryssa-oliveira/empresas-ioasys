@@ -21,16 +21,13 @@ import org.koin.core.KoinComponent
 class MainViewModel : ViewModel(), KoinComponent {
 
     private val mainUseCase: MainUseCase by useCase()
-
     private val filterCompanyUseCase: FilterCompanyUseCase by useCase()
     private val favoriteCompanyUseCase: FavoriteCompanyUseCase by useCase()
     private val _companyListLiveData by viewState<List<Company>>()
     private val _filterCompany by viewState<List<Company>>()
-
     private val _favoriteCompany by viewState<Unit>()
     val companyListLiveData: LiveData<ViewState<List<Company>>> = _companyListLiveData
     val filterCompany: LiveData<ViewState<List<Company>>> = _filterCompany
-
     val favoriteCompany: LiveData<ViewState<Unit>> = _favoriteCompany
     private var listCompany = mutableListOf<Company>()
 

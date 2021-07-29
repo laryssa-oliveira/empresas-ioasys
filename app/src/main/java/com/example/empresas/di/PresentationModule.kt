@@ -11,6 +11,7 @@ val presentationModule = module {
     viewModel { SplashViewModel() }
     viewModel { DetailsViewModel() }
     viewModel { HomeViewModel() }
+    viewModel { FavoriteCompaniesViewModel() }
 
 
 }

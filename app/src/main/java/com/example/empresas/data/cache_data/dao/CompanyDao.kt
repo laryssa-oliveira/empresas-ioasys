@@ -13,6 +13,9 @@ interface CompanyDao {
     @Query("SELECT * FROM companies_table WHERE id = :idCompany")
     suspend fun getCompanyById(idCompany: Int) : CompanyLocal?
 
+    @Query("SELECT * FROM companies_table")
+    suspend fun getCompanyByFavorite() : List<CompanyLocal>?
+
     @Update
     suspend fun updateCompany(companyLocal: CompanyLocal)
 

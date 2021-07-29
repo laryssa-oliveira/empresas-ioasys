@@ -2,6 +2,7 @@ package com.example.empresas.domain.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.empresas.domain.entities.Company
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.parameter.parametersOf
 
 
-abstract class UseCase<T, in Params>(private val scope: CoroutineScope): KoinComponent {
+abstract class UseCase<T, in Params>(private val scope: CoroutineScope) : KoinComponent {
     private val contextProvider: ThreadContextProvider by inject()
 
     abstract fun run(params: Params? = null): Flow<T>
