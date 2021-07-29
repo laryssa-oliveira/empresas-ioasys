@@ -1,14 +1,15 @@
 package com.example.empresas.data.cache_data.mapper
+
 import com.example.empresas.data.cache_data.model.CompanyLocal
 import com.example.empresas.data.cache_data.model.CompanyTypeLocal
+import com.example.empresas.data.cache_data.model.HeadersLocal
 import com.example.empresas.data.constants.Constants.HEADER_ACCESS_TOKEN
 import com.example.empresas.data.constants.Constants.HEADER_CLIENT
 import com.example.empresas.data.constants.Constants.HEADER_UID
-import com.example.empresas.data.cache_data.model.HeadersLocal
 import com.example.empresas.domain.entities.Company
 import com.example.empresas.domain.entities.CompanyType
-
 import okhttp3.Headers
+import java.util.Collections.list
 
 object LocalModelMappers {
 
@@ -59,5 +60,8 @@ object LocalModelMappers {
                         id = id,
                         companyTypeName = companyTypeName
                 )
+
+        fun List<CompanyLocal>.toModel() = this.map { it.toModel() }
+
 
 }

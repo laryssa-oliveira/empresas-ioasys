@@ -1,6 +1,7 @@
 package com.example.empresas.data.cache_data.datasource
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.core.content.edit
 import com.example.empresas.data.cache_data.dao.CompanyDao
 import okhttp3.Headers
@@ -15,6 +16,7 @@ import com.example.empresas.data.cache_data.mapper.LocalModelMappers.fromLocalMo
 import com.example.empresas.data.cache_data.mapper.LocalModelMappers.toLocalModel
 import com.example.empresas.data.cache_data.mapper.LocalModelMappers.toModel
 import com.example.empresas.domain.entities.Company
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -83,4 +85,7 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun getCompanyById(id: Int) = companyDao.getCompanyById(id)?.toModel()
+
+    override suspend fun getCompanyByFavorite() = companyDao.getCompanyByFavorite()?.toModel() ?: listOf()
+
 }

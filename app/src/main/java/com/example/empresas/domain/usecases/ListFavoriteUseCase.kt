@@ -6,10 +6,9 @@ import com.example.empresas.domain.repository.EnterpriseRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
-class MainUseCase(scope: CoroutineScope, private val enterpriseRepository: EnterpriseRepository): UseCase<List<Company>, Unit>(scope){
+class ListFavoriteUseCase (scope: CoroutineScope, private val enterpriseRepository: EnterpriseRepository): UseCase<List<Company>, Unit>(scope){
 
     override fun run(params: Unit?): Flow<List<Company>> {
-        return enterpriseRepository.getEnterprises()
+        return enterpriseRepository.getFavoriteEnterprises()
     }
-
 }

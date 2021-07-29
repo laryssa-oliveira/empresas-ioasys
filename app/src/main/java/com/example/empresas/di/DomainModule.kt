@@ -13,5 +13,6 @@ val domainModule = module {
     factory { (scope: CoroutineScope) -> LogoutUseCase(scope, get()) }
     factory { (scope: CoroutineScope) -> FilterCompanyUseCase(scope) }
     factory { (scope: CoroutineScope) -> FavoriteCompanyUseCase(scope,get()) }
+    factory { (scope: CoroutineScope) -> ListFavoriteUseCase(scope,get()) }
 
 }
