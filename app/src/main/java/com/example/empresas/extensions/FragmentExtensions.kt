@@ -16,9 +16,6 @@ import java.io.IOException
 import androidx.core.content.FileProvider
 
 
-
-
-
 fun Fragment.shareCompany(description: String, mUrlImage: String) {
     StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().build())
 

@@ -1,65 +1,52 @@
 package com.example.empresas.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
 import com.example.empresas.R
+import com.example.empresas.databinding.FragmentHomeBinding
 import com.example.empresas.presentation.HomeViewModel
 import com.example.empresas.presentation.ViewState
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class HomeFragment : Fragment() {
 
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager: ViewPager
     private lateinit var pagerAdapter: PagerAdapter
-    private lateinit var toolbar: Toolbar
     private lateinit var dialogFragment: DialogFragment
     private val homeViewModel by viewModel<HomeViewModel>()
-    private lateinit var loadingGroup: Group
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tabLayout = requireActivity().findViewById(R.id.tabLayout)
-        viewPager = requireActivity().findViewById(R.id.viewPager)
-        toolbar = requireActivity().findViewById(R.id.mainToolbar)
-        loadingGroup = requireActivity().findViewById(R.id.loadingGroupHome)
-
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.mainToolbar)
 
-        pagerAdapter = PageAdapter(childFragmentManager, tabLayout.tabCount)
-        viewPager.adapter = pagerAdapter
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        pagerAdapter = PageAdapter(childFragmentManager, binding.tabLayout.tabCount)
+        binding.viewPager.adapter = pagerAdapter
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
+                binding.viewPager.currentItem = tab.position
                 pagerAdapter.notifyDataSetChanged()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
 
         setObservers()
     }
@@ -74,8 +61,8 @@ class HomeFragment : Fragment() {
         return when (item.itemId) {
             R.id.btnLogout -> {
                 dialogFragment = DialogFragment(
-                        onYesEvent = { homeViewModel.logout() },
-                        onNoEvent = { dialogFragment.dismiss() }
+                    onYesEvent = { homeViewModel.logout() },
+                    onNoEvent = { dialogFragment.dismiss() }
                 )
                 dialogFragment.show(childFragmentManager, "dialogFragment")
                 true
@@ -103,9 +90,9 @@ class HomeFragment : Fragment() {
 
     private fun onLoading(loading: Boolean) {
         if (loading)
-            loadingGroup.visibility = View.VISIBLE
+            binding.loadingGroupHome.visibility = View.VISIBLE
         else
-            loadingGroup.visibility = View.GONE
+            binding.loadingGroupHome.visibility = View.GONE
 
     }
 

@@ -5,15 +5,6 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/btnSearch"
-        android:icon="@drawable/ic_search"
-        android:iconTint="@color/white"
-        android:title="@string/search"
-        app:showAsAction="always"
-        android:enabled="true"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
-
-    <item
         android:id="@+id/btnLogout"
         android:icon="@drawable/ic_logout"
         android:iconTint="@color/white"
