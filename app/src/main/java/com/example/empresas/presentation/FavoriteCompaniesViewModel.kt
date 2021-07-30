@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.empresas.domain.core.useCase
 import com.example.empresas.domain.entities.Company
 import com.example.empresas.domain.usecases.FavoriteCompanyUseCase
+import com.example.empresas.domain.usecases.FilterCompanyUseCase
 import com.example.empresas.domain.usecases.ListFavoriteUseCase
 import com.example.empresas.domain.usecases.MainUseCase
 import com.example.empresas.extensions.viewState
@@ -18,9 +19,11 @@ class FavoriteCompaniesViewModel : ViewModel(), KoinComponent {
     private val _companyListLiveData by viewState<List<Company>>()
     val companyListLiveData: LiveData<ViewState<List<Company>>> = _companyListLiveData
     private var listCompanyFavorite = mutableListOf<Company>()
-    private lateinit var company: Company
     private val _favoriteCompany by viewState<Unit>()
     val favoriteCompany: LiveData<ViewState<Unit>> = _favoriteCompany
+    private val _filterCompany by viewState<List<Company>>()
+    val filterCompany: LiveData<ViewState<List<Company>>> = _filterCompany
+    private val filterCompanyUseCase: FilterCompanyUseCase by useCase()
 
 
     fun getFavoriteCompanies() {
@@ -47,6 +50,16 @@ class FavoriteCompaniesViewModel : ViewModel(), KoinComponent {
             },
             onError = {
                 _favoriteCompany.value = ViewState.error(it)
+            })
+    }
+
+    fun filter(term: String) {
+        filterCompanyUseCase(params = FilterCompanyUseCase.FilterCompanyParams(listCompanyFavorite, term),
+            onSuccess = {
+                _filterCompany.value = ViewState.success(it)
+            },
+            onError = {
+                _filterCompany.value = ViewState.error(it)
             })
     }
 }

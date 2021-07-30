@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 import com.example.empresas.R
+import com.example.empresas.extensions.shareCompany
 import com.example.empresas.presentation.DetailsViewModel
 import com.example.empresas.presentation.MainViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -28,6 +29,7 @@ class DetailsFragment: Fragment(){
     private lateinit var companyName: AppCompatTextView
     private lateinit var descriptionCompany: AppCompatTextView
     private lateinit var favoriteCompany: AppCompatImageView
+    private lateinit var share: AppCompatImageView
     private val detailsViewModel by viewModel<DetailsViewModel>()
 
     override fun onCreateView(
@@ -45,6 +47,7 @@ class DetailsFragment: Fragment(){
         companyName = view.findViewById(R.id.companyName)
         descriptionCompany = view.findViewById(R.id.descriptionCompany)
         favoriteCompany = view.findViewById(R.id.favCompany)
+        share = view.findViewById(R.id.share)
 
         favoriteCompany.setOnClickListener {
             if (args.company.favorite){
@@ -54,6 +57,10 @@ class DetailsFragment: Fragment(){
                 favoriteCompany.setImageResource(R.drawable.ic_favorite)
             }
             detailsViewModel.favorite(args.company.favorite, args.company)
+        }
+
+        share.setOnClickListener {
+            shareCompany(args.company.description, args.company.pathImage!!)
         }
 
         setupToolbar()

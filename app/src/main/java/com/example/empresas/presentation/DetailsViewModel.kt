@@ -25,4 +25,6 @@ class DetailsViewModel : ViewModel(), KoinComponent {
     }
 
 
+
+
 }
