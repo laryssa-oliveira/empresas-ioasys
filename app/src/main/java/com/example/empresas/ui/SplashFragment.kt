@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.empresas.R
+import com.example.empresas.databinding.FragmentMainBinding
+import com.example.empresas.databinding.FragmentSplashBinding
 import com.example.empresas.domain.entities.Company
 import com.example.empresas.presentation.SplashViewModel
 import com.example.empresas.presentation.ViewState
@@ -18,12 +20,14 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class SplashFragment : Fragment() {
 
     private val viewModel: SplashViewModel by viewModel()
+    private lateinit var binding: FragmentSplashBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+        binding = FragmentSplashBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onStart() {

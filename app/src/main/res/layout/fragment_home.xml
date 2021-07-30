@@ -28,11 +28,12 @@
                 android:layout_height="32dp"
                 android:contentDescription="Logo ioasys"
                 android:src="@drawable/logo_home"
+                android:layout_marginStart="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -47,13 +48,11 @@
         app:layout_constraintTop_toBottomOf="@id/mainToolbar">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_main" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabFavorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_favorite" />
@@ -71,11 +70,11 @@
         android:id="@+id/viewLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/whiteTransparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/whiteTransparent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -91,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:constraint_referenced_ids="viewLoading,progressBar"/>
+        app:constraint_referenced_ids="viewLoading,progressBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

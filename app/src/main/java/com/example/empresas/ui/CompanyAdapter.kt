@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.empresas.R
 import com.example.empresas.domain.entities.Company
 
-
 class CompanyAdapter(
     private val callback: (Company) -> Unit,
     private val callbackLike: (company: Company, like: Boolean) -> Unit
@@ -31,20 +30,18 @@ class CompanyAdapter(
             itemView.setOnClickListener { callback.invoke(company) }
 
             val favImageView = itemView.findViewById<AppCompatImageView>(R.id.favoriteCompany)
-            if(company.favorite){
+            if (company.favorite) {
                 favImageView.setImageResource(R.drawable.ic_favorite)
-            }
-            else{
+            } else {
                 favImageView.setImageResource(R.drawable.ic_not_favorite)
             }
 
             favImageView.setOnClickListener {
                 callbackLike.invoke(company, company.favorite)
-                if(company.favorite){
+                if (company.favorite) {
                     company.favorite = false
                     favImageView.setImageResource(R.drawable.ic_not_favorite)
-                }
-                else{
+                } else {
                     company.favorite = true
                     favImageView.setImageResource(R.drawable.ic_favorite)
                 }
@@ -81,4 +78,3 @@ class CompanyAdapter(
         companies = list
     }
 }
-

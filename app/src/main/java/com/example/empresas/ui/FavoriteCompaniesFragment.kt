@@ -1,56 +1,41 @@
 package com.example.empresas.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.Group
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.example.empresas.R
+import com.example.empresas.databinding.FragmentFavoriteCompaniesBinding
 import com.example.empresas.domain.entities.Company
 import com.example.empresas.presentation.FavoriteCompaniesViewModel
-import com.example.empresas.presentation.MainViewModel
 import com.example.empresas.presentation.ViewState
 import org.koin.android.viewmodel.ext.android.viewModel
-import android.text.Editable
-
-import android.text.TextWatcher
-
-
-
 
 class FavoriteCompaniesFragment : Fragment() {
 
     private lateinit var adapter: CompanyAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var cardView: CardView
     private val favCompaniesViewModel by viewModel<FavoriteCompaniesViewModel>()
-    private lateinit var loadingGroup: Group
-    private lateinit var searchEditText: EditText
+    private lateinit var binding: FragmentFavoriteCompaniesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorite_companies, container, false)
+        binding = FragmentFavoriteCompaniesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = requireActivity().findViewById(R.id.recyclerViewFavorite)
-        cardView = requireActivity().findViewById(R.id.cardNoFavorite)
-        loadingGroup = requireActivity().findViewById(R.id.loadingGroupFavorite)
-        searchEditText = requireActivity().findViewById(R.id.searchFavorite)
         favCompaniesViewModel.getFavoriteCompanies()
 
         setObservers()
 
-        searchEditText.addTextChangedListener(object : TextWatcher {
+        binding.searchFavorite.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -84,7 +69,7 @@ class FavoriteCompaniesFragment : Fragment() {
         onLoading(false)
         adapter = CompanyAdapter(callback = ::clickItem, callbackLike = ::clickLikeItem)
         adapter.setItems(list)
-        recyclerView.adapter = adapter
+        binding.recyclerViewFavorite.adapter = adapter
         updateUI(list)
     }
 
@@ -92,7 +77,7 @@ class FavoriteCompaniesFragment : Fragment() {
         onLoading(false)
         adapter = CompanyAdapter(callback = ::clickItem, callbackLike = ::clickLikeItem)
         adapter.setItems(list)
-        recyclerView.adapter = adapter
+        binding.recyclerViewFavorite.adapter = adapter
     }
 
     private fun clickItem(company: Company) {
@@ -107,12 +92,11 @@ class FavoriteCompaniesFragment : Fragment() {
     }
 
 
-
     private fun onLoading(loading: Boolean) {
         if (loading)
-            loadingGroup.visibility = View.VISIBLE
+            binding.loadingGroupFavorite.visibility = View.VISIBLE
         else
-            loadingGroup.visibility = View.GONE
+            binding.loadingGroupFavorite.visibility = View.GONE
 
     }
 
@@ -124,13 +108,13 @@ class FavoriteCompaniesFragment : Fragment() {
     private fun updateUI(list: List<Company>) {
 
         if (list.isNotEmpty()) {
-            recyclerView.visibility = View.VISIBLE
-            cardView.visibility = View.GONE
-            searchEditText.visibility = View.VISIBLE
+            binding.recyclerViewFavorite.visibility = View.VISIBLE
+            binding.cardNoFavorite.visibility = View.GONE
+            binding.searchFavorite.visibility = View.VISIBLE
         } else {
-            recyclerView.visibility = View.GONE
-            cardView.visibility = View.VISIBLE
-            searchEditText.visibility = View.GONE
+            binding.recyclerViewFavorite.visibility = View.GONE
+            binding.cardNoFavorite.visibility = View.VISIBLE
+            binding.searchFavorite.visibility = View.GONE
         }
     }
 
