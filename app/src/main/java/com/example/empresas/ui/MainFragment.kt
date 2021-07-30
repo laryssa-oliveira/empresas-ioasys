@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
@@ -14,6 +15,12 @@ import com.example.empresas.domain.entities.Company
 import com.example.empresas.presentation.MainViewModel
 import com.example.empresas.presentation.ViewState
 import org.koin.android.viewmodel.ext.android.viewModel
+import android.text.Editable
+
+import android.text.TextWatcher
+
+
+
 
 
 class MainFragment : Fragment() {
@@ -22,6 +29,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val mainViewModel by viewModel<MainViewModel>()
     private lateinit var loadingGroup: Group
+    private lateinit var searchEditText: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +43,18 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = requireActivity().findViewById(R.id.recyclerView)
         loadingGroup = requireActivity().findViewById(R.id.loadingGroupMain)
+        searchEditText = requireActivity().findViewById(R.id.searchMain)
         mainViewModel.getCompanies()
 
         setObservers()
+
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                mainViewModel.filter(s.toString())
+            }
+        })
     }
 
     private fun setObservers() {
