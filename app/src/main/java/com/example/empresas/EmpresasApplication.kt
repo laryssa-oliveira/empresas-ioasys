@@ -1,7 +1,8 @@
 package com.example.empresas
 
 import android.app.Application
-import com.example.empresas.di.*
+import com.example.di.*
+import com.example.di.intent.intentModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -14,15 +15,16 @@ class EmpresasApplication : Application() {
 
     private fun setupKoin() {
         startKoin {
-            androidContext(this@EmpresasApplication)
-            modules(listOf(
+            modules(
+                intentModule +
+                listOf(
                     presentationModule,
                     dataModule,
                     dataLocalModule,
                     dataRemoteModule,
                     domainModule
-            )
-        )
+                )
+            ).androidContext(applicationContext)
         }
     }
 }

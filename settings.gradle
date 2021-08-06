@@ -1,2 +1,11 @@
 include ':app'
 rootProject.name = "Empresas"
+include ':feature_login'
+include ':data'
+include ':data_local'
+include ':data_remote'
+include ':di'
+include ':feature_main'
+include ':domain'
+include ':intent'
+include ':base_feature'

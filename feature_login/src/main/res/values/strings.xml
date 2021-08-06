@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">feature_like</string>
+    <string name="text_title">BEM-VINDO AO \nEMPRESAS</string>
+    <string name="text_subtitle">Lorem ipsum dolor sit amet, contetur \nadipiscing elit. Nunc accumsan.</string>
+    <string name="text_hint_email">E-mail</string>
+    <string name="text_hint_password">Senha</string>
+    <string name="text_btnLogin">ENTRAR</string>
+    <string name="text_details">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="search">Pesquisar</string>
+    <string name="logout">Sair</string>
+    <string name="text_dialog">Tem certeza que deseja sair?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="title_main">Home</string>
+    <string name="title_favorite">Favorites</string>
+    <string name="text_favorite">No favorite companies</string>
+</resources>
