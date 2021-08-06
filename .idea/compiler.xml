@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Empresas.app" target="11" />
+      <module name="Empresas.base_feature" target="11" />
+      <module name="Empresas.data_local" target="11" />
+      <module name="Empresas.di" target="11" />
+      <module name="Empresas.feature_login" target="11" />
+      <module name="Empresas.feature_main" target="11" />
+      <module name="Empresas.intent" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

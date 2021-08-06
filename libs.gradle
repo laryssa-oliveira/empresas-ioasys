@@ -1,0 +1,54 @@
+ext {
+    //kotlin
+    kotlin               = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kotlinReflect        = "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    coroutine            = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+
+    //androidx
+    appCompat            = "androidx.appcompat:appcompat:$appCompatVersion"
+    androidKtxCore       = "androidx.core:core-ktx:$androidKtxCoreVersion"
+    constraintLayout     = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    navigationUi         = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    navigationFragment   = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+
+    //androidx lifecycle
+    viewModelRuntime     = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    viewModel            = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    lifecycleXt          = "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    liveData             = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    //koin
+    koinAndroid          = "org.koin:koin-android:$koinVersion"
+    koinScope            = "org.koin:koin-androidx-scope:$koinVersion"
+    koinViewModel        = "org.koin:koin-androidx-viewmodel:$koinVersion"
+
+    //retrofit
+    retrofit2            = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    retrofitCoroutine    = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutineVersion"
+    httpInterceptor      = "com.squareup.okhttp3:logging-interceptor:$httpInterceptorVersion"
+    okhttp               = "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    gsonConvertFacotory  = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    //gson
+    gson                 = "com.google.code.gson:gson:$gsonVersion"
+
+    // afollestad
+    recyclical           = "com.afollestad:recyclical:$recyclicalVersion"
+    materialDialog       = "com.afollestad.material-dialogs:core:$materialDialogVersion"
+
+    //material
+    material             = "com.google.android.material:material:$materialVersion"
+    swipeRefresh         = "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion"
+    recyclerView         = "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+
+    //images
+    circleImageView      = "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    picasso              = "com.squareup.picasso:picasso:$picassoVersion"
+
+    // room
+    room                 = "androidx.room:room-runtime:$roomVersion"
+    roomKtx              = "androidx.room:room-ktx:$roomVersion"
+    roomCompiler         = "androidx.room:room-compiler:$roomVersion"
+
+    glide = "com.github.bumptech.glide:glide:$glideVersion"
+}
